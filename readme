@@ -1,0 +1,197 @@
+# Notes API
+
+This project is a simple RESTful API for managing notes, built using Node.js and Express.
+
+## Features
+
+- **Create a new note**: Add a new note with an ID, title, content, and tags.
+- **Retrieve all notes**: Fetch all notes stored in memory.
+- **Retrieve a single note**: Fetch a specific note by its ID.
+- **Update a note**: Modify an existing note's title, content, and tags.
+- **Delete a note**: Remove a specific note by its ID.
+- **Append tags**: Add new tags to an existing note.
+- **Remove tags**: Remove specific tags from an existing note.
+- **Query notes**: Fetch notes based on included and excluded tags.
+
+## Requirements
+
+- Node.js (v12 or higher)
+
+## Installation
+
+1. Clone the repository:
+
+    ```sh
+    git clone https://github.com/Lzyrus40/notes-api.git
+    cd notes-api
+    ```
+
+2. Install dependencies:
+
+    ```sh
+    npm install
+    ```
+
+3. Start the server:
+
+    ```sh
+    npm start
+    ```
+
+    The server will start on `http://localhost:3000` by default. You can change the port by setting the `PORT` environment variable.
+
+## API Endpoints
+
+### Create a new note
+
+- **URL**: `/notes`
+- **Method**: `POST`
+- **Body**:
+    ```json
+    {
+        "id": "1",
+        "title": "Sample Note",
+        "content": "This is a sample note.",
+        "tags": ["tag1", "tag2"]
+    }
+    ```
+- **Response**: `201 Created`
+    ```json
+    {
+        "id": "1",
+        "title": "Sample Note",
+        "content": "This is a sample note.",
+        "tags": ["tag1", "tag2"]
+    }
+    ```
+
+### Retrieve all notes
+
+- **URL**: `/notes`
+- **Method**: `GET`
+- **Response**: `200 OK`
+    ```json
+    [
+        {
+            "id": "1",
+            "title": "Sample Note",
+            "content": "This is a sample note.",
+            "tags": ["tag1", "tag2"]
+        }
+    ]
+    ```
+
+### Retrieve a single note
+
+- **URL**: `/notes/:id`
+- **Method**: `GET`
+- **Response**: `200 OK`
+    ```json
+    {
+        "id": "1",
+        "title": "Sample Note",
+        "content": "This is a sample note.",
+        "tags": ["tag1", "tag2"]
+    }
+    ```
+
+### Update a note
+
+- **URL**: `/notes/:id`
+- **Method**: `PUT`
+- **Body**:
+    ```json
+    {
+        "title": "Updated Note",
+        "content": "This is an updated note.",
+        "tags": ["tag1", "tag3"]
+    }
+    ```
+- **Response**: `200 OK`
+    ```json
+    {
+        "id": "1",
+        "title": "Updated Note",
+        "content": "This is an updated note.",
+        "tags": ["tag1", "tag3"]
+    }
+    ```
+
+### Delete a note
+
+- **URL**: `/notes/:id`
+- **Method**: `DELETE`
+- **Response**: `200 OK`
+    ```json
+    {
+        "status": 1,
+        "message": "Note deleted successfully"
+    }
+    ```
+
+### Append tags to a note
+
+- **URL**: `/notes/:id/tags`
+- **Method**: `PUT`
+- **Body**:
+    ```json
+    {
+        "tags": ["tag3", "tag4"]
+    }
+    ```
+- **Response**: `200 OK`
+    ```json
+    {
+        "id": "1",
+        "title": "Sample Note",
+        "content": "This is a sample note.",
+        "tags": ["tag1", "tag2", "tag3", "tag4"]
+    }
+    ```
+
+### Remove tags from a note
+
+- **URL**: `/notes/:id/tags`
+- **Method**: `DELETE`
+- **Body**:
+    ```json
+    {
+        "tags": ["tag1"]
+    }
+    ```
+- **Response**: `200 OK`
+    ```json
+    {
+        "id": "1",
+        "title": "Sample Note",
+        "content": "This is a sample note.",
+        "tags": ["tag2"]
+    }
+    ```
+
+### Query notes by tags
+
+- **URL**: `/notes/query`
+- **Method**: `GET`
+- **Query Parameters**:
+    - `includeTags`: array of tags to include (AND condition)
+    - `excludeTags`: array of tags to exclude (NOT condition)
+- **Response**: `200 OK`
+    ```json
+    [
+        {
+            "id": "1",
+            "title": "Sample Note",
+            "content": "This is a sample note.",
+            "tags": ["tag2"]
+        }
+    ]
+    ```
+
+## Error Handling
+
+The API responds with appropriate HTTP status codes and error messages for invalid requests, including:
+
+- `400 Bad Request`: Missing required fields or invalid data.
+- `404 Not Found`: Note not found.
+- `409 Conflict`: Note with the same ID already exists.
