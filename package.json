@@ -1,0 +1,12 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "This project is a simple RESTful API for managing notes, built using Node.js and Express.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
